@@ -65,7 +65,25 @@ public class StudentsServiceImpl implements StudentsService {
 
     @Override
     public StudentsDto updateStudent(StudentsDto studentsDto, Long id) {
-        return null;
+        Students students = studentsRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Student", "id", id));
+//        student = mapToEntity(studentsDto);
+//        student.setId(studentsDto.getId());
+//        studentsRepository.delete(students);
+
+//        students.setId(studentsDto.getId());
+        students.setName(studentsDto.getName());
+        students.setFatherName(studentsDto.getFatherName());
+        students.setDOB(studentsDto.getDOB());
+        students.setEmailId(studentsDto.getEmailId());
+        students.setAadharCardNumber(studentsDto.getAadharCardNumber());
+        students.setAddress(studentsDto.getAddress());
+        students.setDepartment(studentsDto.getDepartment());
+        students.setMobileNumber(studentsDto.getMobileNumber());
+
+        Students updateStudent = studentsRepository.save(students);
+        StudentsDto studentsResponse = mapToDto(updateStudent);
+//        studentsResponse.setId(student.getId());
+        return studentsResponse;
     }
 
     @Override

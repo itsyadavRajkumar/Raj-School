@@ -1,5 +1,6 @@
 package com.raj.school.controller;
 
+import com.raj.school.entity.Students;
 import com.raj.school.payload.StudentsDto;
 import com.raj.school.service.StudentsService;
 import lombok.AllArgsConstructor;
@@ -33,4 +34,9 @@ public class StudentController {
         return new ResponseEntity<>("Student Delete Successfully!", HttpStatus.OK);
     }
 
+    @PutMapping("/students/{id}")
+    public ResponseEntity<StudentsDto> updateStudentById(@RequestBody StudentsDto studentsDto, @PathVariable Long id) {
+        StudentsDto studentsResponse = studentsService.updateStudent(studentsDto, id);
+        return new ResponseEntity<>(studentsResponse, HttpStatus.OK);
+    }
 }
